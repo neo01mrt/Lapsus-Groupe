@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #542323;
+        }
+
+        header {
+            background-color: #060505;
+            color: rgb(255, 0, 0);
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start; /* Aligner à gauche */
+        }
+
+        nav ul li {
+            margin: 0 1em;
+        }
+
+        main {
+            padding: 2em;
+            margin-left: auto; /* Décaler tout le contenu vers la droite */
+            margin-right: 2em; /* Ajouter une marge à droite pour l'espace */
+        }
+
+        #productList {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Grille avec des colonnes automatiques de largeur minimale de 200px */
+            grid-gap: 1em; /* Espacement entre les éléments de la grille */
+        }
+
+        .product {
+            border: 1px solid #984444;
+            padding: 0.5em;
+            background-color: rgb(141, 61, 61);
+            text-align: center;
+        }
+
+        .product img {
+            max-width: 100%;
+            max-height: 120px;
+            margin-bottom: 0.5em;
+        }
+
+        select {
+            padding: 0.5em;
+        }
+
+        label, select {
+            display: inline-block;
+            margin-left: auto;
+            margin-right: 0; /* Décaler vers la droite */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lapsus$Groupe</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Produits</a></li>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Catalogue de Produits</h2>
+        <div style="text-align: right;"> <!-- Ajout d'un conteneur pour aligner à droite -->
+            <label for="category">Choisir une catégorie :</label>
+            <select id="category" onchange="filterProducts()">
+                <option value="all">Tous</option>
+                <option value="electronics">Électronique</option>
+                <option value="clothing">Vêtements</option>
+                <option value="books">Livres</option>
+                <option value="furniture">Meubles</option>
+                <!-- Ajoutez plus de catégories selon vos besoins -->
+            </select>
+        </div>
+        <div id="productList">
+            
+        </div>
+    </main>
+
+    <script>
+        const products = [
+            // ... (produits inchangés)
+            { name: "Camera", category: "electronics", image: "camera.jpg" },
+            { name: "Dress", category: "clothing", image: "dress.jpg" },
+            { name: "Cookbook", category: "books", image: "cookbook.jpg" },
+            { name: "Desk", category: "furniture", image: "desk.jpg" },
+        ];
+
+        function filterProducts() {
+            const category = document.getElementById("category").value;
+            const productList = document.getElementById("productList");
+            productList.innerHTML = "";
+
+            const filteredProducts = category === "all" ? products : products.filter(product => product.category === category);
+
+            filteredProducts.forEach(product => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+
+                const productImg = document.createElement("img");
+                productImg.src = product.image;
+
+                const productName = document.createElement("h3");
+                productName.textContent = product.name;
+
+                productDiv.appendChild(productImg);
+                productDiv.appendChild(productName);
+                productList.appendChild(productDiv);
+            });
+        }
+    </script>
+</body>
+</html>
